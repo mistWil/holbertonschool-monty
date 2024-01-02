@@ -1,31 +1,43 @@
-#include "monty.h"
+#ifndef MONTY_H
+#define MONTY_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define DELIMITERS " \t\n"
 
 /**
- * parse_line - Parses a line of Monty bytecode
- * @line: Line of Monty bytecode
- * @line_number: Line number in the file
- * Return: The corresponding instruction_t structure
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
  */
-
-instruction_t parse_line(char *line, unsigned int line_number)
+typedef struct stack_s
 {
-	instruction_t instruction = {NULL, NULL};
-	char *opcode = strtok(line, DELIMITERS);
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
+} stack_t;
 
-	if (opcode && opcode[0] != '#')
-	{
-		instruction.opcode = strdup(opcode);
-		if (!instruction.opcode)
-		{
-			fprintf(stderr, "Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
-		instruction.f = get_op_func(instruction.opcode);
-		if (!instruction.f)
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			exit(EXIT_FAILURE);
-		}
-	}
-	return (instruction);
-}
+/**
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ */
+typedef struct instruction_s
+{
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
+} instruction_t;
+
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
+int is_valid_int(const char *str);
+instruction_t parse_line(char *line, unsigned int line_number);
+
+#endif /* MONTY_H */
+
