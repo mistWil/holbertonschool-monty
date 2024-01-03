@@ -1,1 +1,0 @@
-Read me for the Stack and Queue project
