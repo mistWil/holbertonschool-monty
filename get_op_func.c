@@ -12,7 +12,7 @@ void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
-		/* Add more opcodes as needed */
+		{"pop", pop},
 		{NULL, NULL}};
 
 	int i = 0;
