@@ -7,22 +7,22 @@
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (*stack == NULL || (*stack)->next == NULL)
-    {
-        fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    temp = (*stack)->next;
-    (*stack)->next = temp->next;
-    temp->prev = (*stack)->prev;
+	temp = (*stack)->next;
+	(*stack)->next = temp->next;
+	temp->prev = (*stack)->prev;
 
-    if (temp->next != NULL)
-        temp->next->prev = *stack;
+	if (temp->next != NULL)
+		temp->next->prev = *stack;
 
-    (*stack)->prev = temp;
-    temp->next = *stack;
-    *stack = temp;
+	(*stack)->prev = temp;
+	temp->next = *stack;
+	*stack = temp;
 }
