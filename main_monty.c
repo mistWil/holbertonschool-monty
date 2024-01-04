@@ -1,6 +1,5 @@
 #include "monty.h"
 
-
 /**
  * main - Entry point for the Monty program
  * @argc: Number of command line arguments
@@ -40,8 +39,8 @@ int main(int argc, char *argv[])
 	}
 
 	free(line);
-	fclose(file);
 	free_stack(stack);
+	fclose(file);
 	return (EXIT_SUCCESS);
 }
 
