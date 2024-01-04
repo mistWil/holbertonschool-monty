@@ -12,7 +12,7 @@ instruction_t parse_line(char *line, unsigned int line_number)
 	instruction_t instruction = {NULL, NULL};
 	char *opcode = strtok(line, DELIMITERS);
 
-	if (opcode && opcode[0] != '#') /* Ignore comments */
+	if (opcode && opcode[0] != '#')
 	{
 		instruction.opcode = strdup(opcode);
 		if (!instruction.opcode)
@@ -24,9 +24,11 @@ instruction_t parse_line(char *line, unsigned int line_number)
 		if (!instruction.f)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			free(instruction.opcode);
 			exit(EXIT_FAILURE);
 		}
 	}
 
+	free(instruction.opcode);
 	return (instruction);
 }
