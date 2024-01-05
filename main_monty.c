@@ -43,5 +43,3 @@ int main(int argc, char *argv[])
 	fclose(file);
 	return (EXIT_SUCCESS);
 }
-
-
